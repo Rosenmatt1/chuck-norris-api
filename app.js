@@ -15,10 +15,13 @@ app.get("/jokes", (req, res, next) => {
 app.get("/jokes/:tag", (req, res, next) => {
   const tag = req.params.tag
   const matching = data.jokes.filter(joke => joke.categories.includes(tag))
-
   data.tags.includes(tag)
   ? res.status(200).send(matching)
   : res.status(404).send("Told you not to mess with the Chuck")
+})
+
+app.post("/karate", (req, res) => {
+  res.send("You messed with the Norris")
 })
 
 app.use((req, res, next) => {
