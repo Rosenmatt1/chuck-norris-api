@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express()
-const port = 707
+const port = 3000
 const data = require("./data.json")
 
 app.use(express.static("public"))
@@ -12,8 +12,23 @@ app.get("/jokes", (req, res, next) => {
   })
 })
 
+app.get("/jokes/:tag", (req, res, next) => {
+  const tag = req.params.tag
+  const matching = data.jokes.filter(joke => joke.categories.includes(tag))
 
-const listener = () => console.log(`Watch out for karate chops on port: ${port}`)
+  data.tags.includes(tag)
+  ? res.status(200).send(matching)
+  : res.status(404).send("Told you not to mess with the Chuck")
+})
+
+app.use((req, res, next) => {
+  res.status(404).send("You should have not messed with The Norris")
+})
+
+
+
+
+const listener = () => console.log(`Watch out for Karate Chops on port: ${port}`)
 
 app.listen(port, listener)
 
